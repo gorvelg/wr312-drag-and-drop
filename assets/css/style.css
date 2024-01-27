@@ -155,14 +155,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 50%;
+    text-align: center;
     z-index: 2;
 }
 .code-box p {
     font-size: var(--xl-font-size);
     color: var(--text-secondary-color);
     margin: 0 1.6rem;
+    text-shadow: 1PX 1px 6px red;
 }
 
 .code-box__input {
