@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="game-container">
+    <div class="game-container__box game-container__box-blur">
+    <button id="playButton" class="btn btn-play">Jouer</button>
+    </div>
+    <img id="key" class="key hidden" src="assets/img/key.png" alt="trousseau de clé">
+    <img id="darkRoom" class="dark-room hidden" src="assets/img/dark-room.png" alt="fond avec lumière éteinte">
+    <img id="caseOpened" class="case-opened hidden" src="assets/img/inside-case.png" alt="intérieur de casier avec des vêtements">
+    <img id="digicode" class="digicode hidden" src="assets/img/button.jpg" alt="digicode">
+    <img id="doorOpened" class="door-opened hidden" src="assets/img/door-opened.png" alt="porte ouverte">
+    <img id="drawing" class="drawing hidden" src="assets/img/draw.png" alt="dessin d'un robot">
+    <img id="clue" class="clue hidden" src="assets/img/indice.png" alt="dessin d'un robot">
+    <img id="card" class="card hidden" src="assets/img/card.png" alt="carte matricule">
+    <img id="cardZoom" class="card-zoom hidden" src="assets/img/carte.png" alt="carte matricule">
+    <img id="lightButton" class="light-button hidden" src="assets/img/switch.png" alt="interrupteur lumière">
+    <div class="code-box hidden">
+        <form action="">
+            <p>Entrez le code</p>
+            <input id="doorCode" class="code-box__input" type="text" placeholder="XX-X-XXXX" maxlength="7">
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+    //Chargement de la page
+ $(document).ready(function() {
+     //Clic sur le bouton jouer
+    $("#playButton").click(function() {
+        $(".game-container__box").removeClass("game-container__box-blur");
+        $("#lightButton").removeClass("hidden");
+        $("#digicode").removeClass("hidden");
+        $("#drawing").removeClass("hidden");
+        $("#darkRoom").removeClass("hidden");
+        $("#key").removeClass("hidden");
+        $(".game-container__box").addClass("hidden");
+    });
+
+    //Clic sur le bouton on/off
+    $("#lightButton").click(function() {
+        $("#darkRoom").toggleClass("hidden");
+        $("#lightButton").toggleClass("brightness");
+    });
+
+    //Clic sur l'indice
+    $("#drawing").click(function() {
+        $("#clue").toggleClass("hidden");
+    });
+
+    //Clic sur le digicode
+    $("#digicode").click(function() {
+        $(".code-box").toggleClass("hidden");
+
+    });
+     /* if ($(".code-box").hasClass("visible")) {
+         $(window).click(function() {
+             $(".code-box").addClass("hidden");
+         });
+     } */
+
+
+
+     //Drag and drop de la clé
+     $( function() {
+         $( ".key" ).draggable();
+     } );
+
+    //Drop de la clé dans le casier
+     $("#key").draggable( { stop: function(e, ui ){
+             if(ui.position.top>525 && ui.position.top<590 && ui.position.left>25 && ui.position.left<55 ) {
+                 $("#caseOpened").removeClass("hidden");
+                 $("#card").removeClass("hidden");
+             };
+
+     } } );
+
+     //Clic sur la carte
+        $("#card").click(function() {
+            $("#cardZoom").toggleClass("hidden");
+        });
+
+     // mot de passe du digicode
+        $("#doorCode").keyup(function() {
+            if ($("#doorCode").val() == "B2X2021") {
+                $("#doorOpened").removeClass("hidden");
+                $(".code-box").addClass("hidden");
+            }
+        });
+});
+</script>
+</body>
+</html>
