@@ -1,0 +1,19 @@
+# Ignorer le répertoire .idea généré par IntelliJ IDEA
+.idea/
+
+# Ignorer les fichiers de sauvegarde temporaires créés par les éditeurs
+*~
+
+# Ignorer les fichiers de build Java
+target/
+
+# Ignorer les fichiers de configuration pour les utilisateurs de Windows
+Thumbs.db
+Desktop.ini
+
+# Ignorer les fichiers de configuration pour les utilisateurs de macOS
+.DS_Store
+
+# Ignorer les fichiers de configuration spécifiques à l'utilisateur
+.vscode/
+
