@@ -47,8 +47,15 @@
             $("#lightButton").toggleClass("brightness");
         });
 
-        $("#drawing").click(function() {
+        $("#drawing").click(function(e) {
             $("#clue").toggleClass("hidden");
+            e.stopPropagation();
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#drawing').length && !$(e.target).closest('#clue').length) {
+                $("#clue").addClass("hidden");
+            }
         });
 
         $("#digicode").click(function(e) {
@@ -58,7 +65,6 @@
 
         $(document).click(function(e) {
             if (!$(e.target).closest('.code-box').length) {
-                // Fermer la boîte de code si le clic n'est pas à l'intérieur de la boîte de code
                 $(".code-box").addClass("hidden");
             }
         });
@@ -76,6 +82,12 @@
 
         $("#card").click(function() {
             $("#cardZoom").toggleClass("hidden");
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#card').length && !$(e.target).closest('#cardZoom').length) {
+                $("#cardZoom").addClass("hidden");
+            }
         });
 
         $("#doorCode").keyup(function() {
