@@ -31,70 +31,61 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
-    //Chargement de la page
- $(document).ready(function() {
-     //Clic sur le bouton jouer
-    $("#playButton").click(function() {
-        $(".game-container__box").removeClass("game-container__box-blur");
-        $("#lightButton").removeClass("hidden");
-        $("#digicode").removeClass("hidden");
-        $("#drawing").removeClass("hidden");
-        $("#darkRoom").removeClass("hidden");
-        $("#key").removeClass("hidden");
-        $(".game-container__box").addClass("hidden");
-    });
+    $(document).ready(function() {
+        $("#playButton").click(function() {
+            $(".game-container__box").removeClass("game-container__box-blur");
+            $("#lightButton").removeClass("hidden");
+            $("#digicode").removeClass("hidden");
+            $("#drawing").removeClass("hidden");
+            $("#darkRoom").removeClass("hidden");
+            $("#key").removeClass("hidden");
+            $(".game-container__box").addClass("hidden");
+        });
 
-    //Clic sur le bouton on/off
-    $("#lightButton").click(function() {
-        $("#darkRoom").toggleClass("hidden");
-        $("#lightButton").toggleClass("brightness");
-    });
+        $("#lightButton").click(function() {
+            $("#darkRoom").toggleClass("hidden");
+            $("#lightButton").toggleClass("brightness");
+        });
 
-    //Clic sur l'indice
-    $("#drawing").click(function() {
-        $("#clue").toggleClass("hidden");
-    });
+        $("#drawing").click(function() {
+            $("#clue").toggleClass("hidden");
+        });
 
-    //Clic sur le digicode
-    $("#digicode").click(function() {
-        $(".code-box").toggleClass("hidden");
+        $("#digicode").click(function(e) {
+            $(".code-box").toggleClass("hidden");
+            e.stopPropagation();
+        });
 
-    });
-     /* if ($(".code-box").hasClass("visible")) {
-         $(window).click(function() {
-             $(".code-box").addClass("hidden");
-         });
-     } */
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.code-box').length) {
+                // Fermer la boîte de code si le clic n'est pas à l'intérieur de la boîte de code
+                $(".code-box").addClass("hidden");
+            }
+        });
 
+        $(".key").draggable();
 
+        $("#key").draggable({
+            stop: function(e, ui) {
+                if (ui.position.top > 525 && ui.position.top < 590 && ui.position.left > 25 && ui.position.left < 55) {
+                    $("#caseOpened").removeClass("hidden");
+                    $("#card").removeClass("hidden");
+                }
+            }
+        });
 
-     //Drag and drop de la clé
-     $( function() {
-         $( ".key" ).draggable();
-     } );
-
-    //Drop de la clé dans le casier
-     $("#key").draggable( { stop: function(e, ui ){
-             if(ui.position.top>525 && ui.position.top<590 && ui.position.left>25 && ui.position.left<55 ) {
-                 $("#caseOpened").removeClass("hidden");
-                 $("#card").removeClass("hidden");
-             };
-
-     } } );
-
-     //Clic sur la carte
         $("#card").click(function() {
             $("#cardZoom").toggleClass("hidden");
         });
 
-     // mot de passe du digicode
         $("#doorCode").keyup(function() {
             if ($("#doorCode").val() == "B2X2021") {
                 $("#doorOpened").removeClass("hidden");
                 $(".code-box").addClass("hidden");
             }
         });
-});
+    });
 </script>
+
 </body>
 </html>
